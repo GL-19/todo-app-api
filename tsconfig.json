@@ -4,9 +4,17 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"outDir": "build",
-		"rootDir": "./",
-		"baseUrl": "./",
+		"baseUrl": "./src",
+		"outDir": "./dist",
+		"paths": {
+			"@controllers/*": ["controllers/*"],
+			"@database/*": ["database/*"],
+			"@entities/*": ["entities/*"],
+			"@repositories/*": ["repositories/*"],
+			"@routes/*": ["routes/*"],
+			"@shared/*": ["shared/*"],
+			"@useCases/*": ["useCases/*"]
+		},
 		"forceConsistentCasingInFileNames": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true
