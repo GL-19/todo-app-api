@@ -7,8 +7,6 @@ const usersController = new UsersController();
 
 usersRouter.post("/", usersController.create);
 
-usersRouter.get("/", (req, res) => {
-	return res.json({ mes: "teste" });
-});
+usersRouter.post("/sessions", usersController.authenticate);
 
 export { usersRouter };
