@@ -4,10 +4,9 @@ import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../repositories/users/IUsersRepository";
 import { AppError } from "../../shared/errors/AppError";
 import { ICreateUserDTO } from "../../shared/types/ICreateUserDTO";
-import { secret } from "../../shared/config/auth";
 
 @injectable()
-class CreateUserUseCase {
+class CreateUserService {
 	constructor(
 		@inject("InMemoryUsersRepository") private usersRepository: IUsersRepository
 	) {}
@@ -19,10 +18,10 @@ class CreateUserUseCase {
 			throw new AppError("User Already Exists!");
 		}
 
-		const hashedPassword = await hash(data.password, secret);
+		const hashedPassword = await hash(data.password, 7);
 
 		await this.usersRepository.create({ ...data, password: hashedPassword });
 	}
 }
 
-export { CreateUserUseCase };
+export { CreateUserService };

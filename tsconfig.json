@@ -6,15 +6,7 @@
 		"skipLibCheck": true,
 		"baseUrl": "./src",
 		"outDir": "./dist",
-		"paths": {
-			"@controllers/*": ["controllers/*"],
-			"@database/*": ["database/*"],
-			"@entities/*": ["entities/*"],
-			"@repositories/*": ["repositories/*"],
-			"@routes/*": ["routes/*"],
-			"@shared/*": ["shared/*"],
-			"@useCases/*": ["useCases/*"]
-		},
+		"rootDir": ".",
 		"forceConsistentCasingInFileNames": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true
