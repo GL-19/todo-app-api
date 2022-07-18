@@ -8,7 +8,8 @@ import { ICreateUserDTO } from "../../shared/types/ICreateUserDTO";
 @injectable()
 class CreateUserService {
 	constructor(
-		@inject("InMemoryUsersRepository") private usersRepository: IUsersRepository
+		@inject("UsersRepository")
+		private usersRepository: IUsersRepository
 	) {}
 
 	async execute(data: ICreateUserDTO): Promise<void> {

@@ -4,6 +4,7 @@ import { ICreateUserDTO } from "../../shared/types/ICreateUserDTO";
 interface IUsersRepository {
 	create(data: ICreateUserDTO): Promise<IUser>;
 	findByEmail(email: string): Promise<IUser>;
+	findById(id: string): Promise<IUser>;
 }
 
 export { IUsersRepository };

@@ -1,8 +1,5 @@
 import { container } from "tsyringe";
-import { InMemoryUsersRepository } from "../../repositories/users/InMemoryUsersRepository";
+import { UsersRepository } from "../../repositories/users/UsersRepository";
 import { IUsersRepository } from "../../repositories/users/IUsersRepository";
 
-container.registerSingleton<IUsersRepository>(
-	"InMemoryUsersRepository",
-	InMemoryUsersRepository
-);
+container.registerSingleton<IUsersRepository>("UsersRepository", UsersRepository);

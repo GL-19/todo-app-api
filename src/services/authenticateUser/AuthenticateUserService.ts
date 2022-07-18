@@ -4,7 +4,6 @@ import { IUsersRepository } from "../../repositories/users/IUsersRepository";
 import { jwt_secret } from "../../shared/config/auth";
 import { AppError } from "../../shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import { User } from "entities/user/User";
 
 interface IAuthenticateResponse {
 	user: {
@@ -18,7 +17,7 @@ interface IAuthenticateResponse {
 @injectable()
 class AuthenticateUserService {
 	constructor(
-		@inject("InMemoryUsersRepository")
+		@inject("UsersRepository")
 		private usersRepository: IUsersRepository
 	) {}
 
