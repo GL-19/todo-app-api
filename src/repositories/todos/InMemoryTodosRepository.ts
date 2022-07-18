@@ -20,6 +20,10 @@ class InMemoryTodosRepository implements ITodosRepository {
 
 		return todo;
 	}
+
+	async listByUser(userId: string): Promise<ITodo[]> {
+		return this.todos.filter((todo) => todo.userId === userId);
+	}
 }
 
 export { InMemoryTodosRepository };
