@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"outDir": "build",
+		"rootDir": "./",
+		"baseUrl": "./",
+		"forceConsistentCasingInFileNames": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
+	}
+}
