@@ -18,7 +18,7 @@ class CreateUserService {
 			throw new AppError("User Already Exists!");
 		}
 
-		const hashedPassword = await hash(data.password, 7);
+		const hashedPassword = await hash(data.password, 8);
 
 		await this.usersRepository.create({ ...data, password: hashedPassword });
 	}
