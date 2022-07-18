@@ -4,9 +4,11 @@ import { IUsersRepository } from "../../repositories/users/IUsersRepository";
 import { jwt_secret } from "../../shared/config/auth";
 import { AppError } from "../../shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
+import { User } from "entities/user/User";
 
 interface IAuthenticateResponse {
 	user: {
+		id: string;
 		name: string;
 		email: string;
 	};
@@ -38,6 +40,7 @@ class AuthenticateUserService {
 		return {
 			token,
 			user: {
+				id: user.id,
 				name: user.name,
 				email: user.email,
 			},

@@ -27,6 +27,7 @@ describe("Authenticate User Service", () => {
 
 		expect(response).toHaveProperty("token");
 		expect(response).toHaveProperty("user");
+		expect(response.user).toHaveProperty("id");
 		expect(response.user.name).toBe("Test Name");
 		expect(response.user.email).toBe("test@email.com");
 	});
