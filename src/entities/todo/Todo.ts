@@ -1,12 +1,25 @@
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 import { ITodo } from "./ITodo";
 
+@Entity("todos")
 class Todo implements ITodo {
+	@PrimaryColumn()
 	id: string;
+
+	@Column()
 	userId: string;
+
+	@Column()
 	name: string;
+
+	@Column()
 	order: number;
+
+	@CreateDateColumn()
 	createdAt: Date;
+
+	@Column("boolean", { default: false })
 	isDone: boolean;
 
 	constructor() {

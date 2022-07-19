@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "jest --runInBand --detectOpenHandles --onlyChanged",
 		"dev": "ts-node-dev --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-		"typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
+		"typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
 		"migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/database/dataSource.ts"
 	},
 	"keywords": [],

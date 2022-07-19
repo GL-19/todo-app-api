@@ -1,6 +1,8 @@
+import { Todo } from "../entities/todo/Todo";
 import { DataSource } from "typeorm";
 import { User } from "../entities/user/User";
 import { CreateUsers1658187381045 } from "./migrations/1658187381045-CreateUsers";
+import { CreateTodos1658193995289 } from "./migrations/1658193995289-CreateTodos";
 
 // use the name of the docker database container as host
 const dataSource = new DataSource({
@@ -10,8 +12,8 @@ const dataSource = new DataSource({
 	username: "postgres",
 	password: "postgres",
 	database: "todo_app_database",
-	migrations: [CreateUsers1658187381045],
-	entities: [User],
+	migrations: [CreateUsers1658187381045, CreateTodos1658193995289],
+	entities: [User, Todo],
 });
 
 dataSource
