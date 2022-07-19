@@ -3,6 +3,12 @@ import { ITodo } from "../../entities/todo/ITodo";
 import { ITodosRepository } from "./ITodosRepository";
 
 class InMemoryTodosRepository implements ITodosRepository {
+	increasePositionsByOne(start: number, end: number): Promise<void> {
+		throw new Error("Method not implemented.");
+	}
+	decreasePositionsByOne(start: number, end: number): Promise<void> {
+		throw new Error("Method not implemented.");
+	}
 	private todos: ITodo[] = [];
 
 	async create(name: string, userId: string): Promise<ITodo> {
@@ -19,6 +25,10 @@ class InMemoryTodosRepository implements ITodosRepository {
 		this.todos.push(todo);
 
 		return todo;
+	}
+
+	async delete(id: string): Promise<void> {
+		throw new Error("Method not implemented.");
 	}
 
 	async findById(id: string): Promise<ITodo> {

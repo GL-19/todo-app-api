@@ -25,6 +25,38 @@ class TodosRepository implements ITodosRepository {
 		return todo;
 	}
 
+	async delete(id: string): Promise<void> {
+		await this.repository.delete({ id });
+	}
+
+	async increasePositionsByOne(start: number = 1, end: number): Promise<void> {
+		const query = this.repository
+			.createQueryBuilder()
+			.update(Todo)
+			.set({ order: () => "order + 1" })
+			.where("order >= :start", { start });
+
+		if (end) {
+			query.andWhere("order <= :end", { end });
+		}
+
+		await query.execute();
+	}
+
+	async decreasePositionsByOne(start: number = 1, end: number): Promise<void> {
+		const query = this.repository
+			.createQueryBuilder()
+			.update(Todo)
+			.set({ order: () => "order - 1" })
+			.where("order >= :start", { start });
+
+		if (end) {
+			query.andWhere("order <= :end", { end });
+		}
+
+		await query.execute();
+	}
+
 	async findById(id: string): Promise<ITodo> {
 		return this.repository.findOneBy({ id });
 	}
