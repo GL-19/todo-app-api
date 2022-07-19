@@ -1,8 +1,8 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { IUsersRepository } from "../../repositories/users/IUsersRepository";
-import { jwt_secret } from "../../shared/config/auth";
-import { AppError } from "../../shared/errors/AppError";
+import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
+import { jwt_secret } from "../../../shared/config/auth";
+import { AppError } from "../../../shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 interface IAuthenticateResponse {

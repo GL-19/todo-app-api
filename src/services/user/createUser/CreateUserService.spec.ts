@@ -1,6 +1,6 @@
-import { AppError } from "../../shared/errors/AppError";
-import { InMemoryUsersRepository } from "../../repositories/users/InMemoryUsersRepository";
-import { IUsersRepository } from "../../repositories/users/IUsersRepository";
+import { AppError } from "../../../shared/errors/AppError";
+import { InMemoryUsersRepository } from "../../../repositories/users/InMemoryUsersRepository";
+import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
 import { CreateUserService } from "./CreateUserService";
 
 let usersRepository: IUsersRepository;

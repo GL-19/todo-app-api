@@ -1,9 +1,9 @@
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
-import { IUsersRepository } from "../../repositories/users/IUsersRepository";
-import { AppError } from "../../shared/errors/AppError";
-import { ICreateUserDTO } from "../../shared/types/ICreateUserDTO";
+import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
+import { AppError } from "../../../shared/errors/AppError";
+import { ICreateUserDTO } from "../../../shared/types/ICreateUserDTO";
 
 @injectable()
 class CreateUserService {
