@@ -35,8 +35,18 @@ class InMemoryTodosRepository implements ITodosRepository {
 		return this.todos.find((todo) => todo.id === id);
 	}
 
-	async listByUser(userId: string): Promise<ITodo[]> {
-		return this.todos.filter((todo) => todo.userId === userId);
+	async listByUser(userId: string, option?: string): Promise<ITodo[]> {
+		if (!option) {
+			return this.todos.filter((todo) => todo.userId === userId);
+		}
+
+		if (option === "completed") {
+			return this.todos.filter((todo) => todo.userId === userId && todo.isDone);
+		}
+
+		if (option === "incompleted") {
+			return this.todos.filter((todo) => todo.userId === userId && !todo.isDone);
+		}
 	}
 }
 
