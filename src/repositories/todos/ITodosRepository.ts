@@ -6,7 +6,7 @@ interface ITodosRepository {
 	increasePositionsByOne(start?: number, end?: number): Promise<void>;
 	decreasePositionsByOne(start?: number, end?: number): Promise<void>;
 	findById(id: string): Promise<ITodo>;
-	listByUser(userId: string): Promise<ITodo[]>;
+	listByUser(userId: string, option?: string): Promise<ITodo[]>;
 }
 
 export { ITodosRepository };
