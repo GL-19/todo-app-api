@@ -10,6 +10,8 @@ todosRouter.get("/", ensureAuthenticated, todosController.list);
 
 todosRouter.post("/", ensureAuthenticated, todosController.create);
 
+todosRouter.get("/:id", ensureAuthenticated, todosController.get);
+
 todosRouter.delete("/:id", ensureAuthenticated, todosController.delete);
 
 export { todosRouter };
