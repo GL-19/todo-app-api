@@ -8,4 +8,6 @@ const todosController = new TodosController();
 
 todosRouter.post("/", ensureAuthenticated, todosController.create);
 
+todosRouter.delete("/:id", ensureAuthenticated, todosController.delete);
+
 export { todosRouter };

@@ -3,10 +3,10 @@ import { ITodo } from "../../entities/todo/ITodo";
 import { ITodosRepository } from "./ITodosRepository";
 
 class InMemoryTodosRepository implements ITodosRepository {
-	increasePositionsByOne(start: number, end: number): Promise<void> {
+	increasePositionsByOne(start: number = 1, end: number): Promise<void> {
 		throw new Error("Method not implemented.");
 	}
-	decreasePositionsByOne(start: number, end: number): Promise<void> {
+	decreasePositionsByOne(start: number = 1, end: number): Promise<void> {
 		throw new Error("Method not implemented.");
 	}
 	private todos: ITodo[] = [];

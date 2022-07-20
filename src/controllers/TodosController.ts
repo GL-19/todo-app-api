@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { DeleteTodoService } from "../services/todos/deleteTodo/DeleteTodoService";
 import { CreateTodoService } from "../services/todos/createTodo/CreateTodoService";
 
 class TodosController {
@@ -12,6 +13,16 @@ class TodosController {
 		const todo = await createTodoService.execute(name, userId);
 
 		return response.status(201).json({ todo });
+	}
+
+	async delete(request: Request, response: Response): Promise<Response> {
+		const { id } = request.params;
+
+		const deleteTodoService = container.resolve(DeleteTodoService);
+
+		await deleteTodoService.execute(id);
+
+		return response.json({ message: "Todo deleted!" });
 	}
 }
 
