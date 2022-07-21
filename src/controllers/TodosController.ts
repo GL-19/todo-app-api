@@ -6,6 +6,7 @@ import { ListTodosService } from "../services/todos/listTodos/ListTodosService";
 import { GetTodoService } from "../services/todos/getTodo/GetTodoService";
 import { ChangeTodoOrder } from "../services/todos/changeTodoOrder/ChangeTodoOrder";
 import { ToggleTodoIsDoneService } from "../services/todos/toggleTodoIsDone/ToggleTodoIsDoneService";
+import { ClearTodoListService } from "../services/todos/clearTodoList/ClearTodoListService";
 
 class TodosController {
 	async create(request: Request, response: Response): Promise<Response> {
@@ -55,7 +56,7 @@ class TodosController {
 	}
 
 	// validate that newOrder is an int
-	async changeTodoOrder(request: Request, response: Response): Promise<Response> {
+	async updateTodoOrder(request: Request, response: Response): Promise<Response> {
 		const { id, newOrder } = request.body;
 
 		const changeTodoOrder = container.resolve(ChangeTodoOrder);
@@ -65,7 +66,7 @@ class TodosController {
 		return response.status(201).send();
 	}
 
-	async toggleTodoIsDone(request: Request, response: Response): Promise<Response> {
+	async updateTodoIsDone(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params;
 
 		const toggleTodoIsDoneService = container.resolve(ToggleTodoIsDoneService);
@@ -73,6 +74,26 @@ class TodosController {
 		await toggleTodoIsDoneService.execute(id);
 
 		return response.status(201).send();
+	}
+
+	//if there is no query option, shuould clear completed todos by default
+	async clearList(request: Request, response: Response): Promise<Response> {
+		const { userId } = request;
+		const { option } = request.query;
+
+		let clearOption: string;
+
+		if (option !== "incompleted" && option !== "all") {
+			clearOption = "completed";
+		} else {
+			clearOption = option;
+		}
+
+		const clearTodoListService = container.resolve(ClearTodoListService);
+
+		await clearTodoListService.execute(userId, clearOption);
+
+		return response.send();
 	}
 }
 

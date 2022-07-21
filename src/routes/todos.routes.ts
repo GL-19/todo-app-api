@@ -10,12 +10,14 @@ todosRouter.get("/", ensureAuthenticated, todosController.list);
 
 todosRouter.post("/", ensureAuthenticated, todosController.create);
 
+todosRouter.delete("/", ensureAuthenticated, todosController.clearList);
+
 todosRouter.get("/:id", ensureAuthenticated, todosController.get);
 
 todosRouter.delete("/:id", ensureAuthenticated, todosController.delete);
 
-todosRouter.patch("/:id", ensureAuthenticated, todosController.toggleTodoIsDone);
+todosRouter.patch("/:id", ensureAuthenticated, todosController.updateTodoIsDone);
 
-todosRouter.post("/change-order", ensureAuthenticated, todosController.changeTodoOrder);
+todosRouter.post("/change-order", ensureAuthenticated, todosController.updateTodoOrder);
 
 export { todosRouter };

@@ -12,6 +12,29 @@ class TodosRepository implements ITodosRepository {
 		this.repository = dataSource.getRepository(Todo);
 	}
 
+	async clearUserList(userId: string, clearOption: string): Promise<void> {
+		if (clearOption === "all") {
+			await this.repository.delete({ userId });
+			return;
+		}
+
+		if (clearOption === "incompleted") {
+			await this.repository.delete({ userId, isDone: false });
+		} else if (clearOption === "completed") {
+			await this.repository.delete({ userId, isDone: true });
+		}
+
+		//try to optimize the list reordering
+		const remainingTodos = await this.repository.find({
+			where: { userId },
+			order: { order: "ASC" },
+		});
+
+		remainingTodos.forEach(async (todo, index) => {
+			await this.repository.update({ id: todo.id }, { order: index + 1 });
+		});
+	}
+
 	async updateTodoIsDone(id: string, isDone: boolean): Promise<void> {
 		await this.repository.update({ id }, { isDone });
 	}

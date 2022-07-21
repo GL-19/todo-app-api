@@ -5,12 +5,18 @@ import { ITodosRepository } from "./ITodosRepository";
 class InMemoryTodosRepository implements ITodosRepository {
 	private todos: ITodo[] = [];
 
+	async clearUserList(userId: string, clearOption: string): Promise<void> {
+		throw new Error("Method not implemented.");
+	}
+
 	async updateTodoIsDone(id: string, isDone: boolean): Promise<void> {
 		throw new Error("Method not implemented.");
 	}
+
 	async countTodosByUser(userId: string): Promise<number> {
 		throw new Error("Method not implemented.");
 	}
+
 	async changeTodoOrder(id: string, newOrder: number): Promise<void> {
 		throw new Error("Method not implemented.");
 	}

@@ -1,5 +1,5 @@
 import { ITodosRepository } from "../../../repositories/todos/ITodosRepository";
-import { IUsersRepository } from "../../../repositories/users/IUsersRepository";
+
 import { inject, injectable } from "tsyringe";
 import { ITodo } from "../../../entities/todo/ITodo";
 
