@@ -14,10 +14,12 @@ class InMemoryTodosRepository implements ITodosRepository {
 	async create(name: string, userId: string): Promise<ITodo> {
 		const todo = new Todo();
 
+		const order = this.todos.filter((todo) => todo.userId === userId).length;
+
 		Object.assign(todo, {
 			name,
 			userId,
-			order: this.todos.length + 1,
+			order: order + 1,
 			createdAt: new Date(),
 			isDone: false,
 		});
