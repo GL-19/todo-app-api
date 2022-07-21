@@ -17,7 +17,6 @@ class DeleteTodoService {
 		}
 
 		await this.todosRepository.delete(id);
-		await this.todosRepository.decreasePositionsByOne(todo.order);
 	}
 }
 

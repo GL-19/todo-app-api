@@ -26,9 +26,18 @@ class TodosRepository implements ITodosRepository {
 	}
 
 	async delete(id: string): Promise<void> {
-		/* const todo = await this.repository.findOneBy({ id }); */
+		const todo = await this.repository.findOneBy({ id });
 
 		await this.repository.delete({ id });
+
+		const reorderUserTodosQuery = this.repository
+			.createQueryBuilder()
+			.update(Todo)
+			.set({ order: () => '"order" - 1' })
+			.where({ userId: todo.userId })
+			.andWhere("order >= :currentOrder", { currentOrder: todo.order });
+
+		await reorderUserTodosQuery.execute();
 	}
 
 	async increasePositionsByOne(start: number = 1, end?: number): Promise<void> {
