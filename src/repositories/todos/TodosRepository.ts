@@ -12,6 +12,10 @@ class TodosRepository implements ITodosRepository {
 		this.repository = dataSource.getRepository(Todo);
 	}
 
+	async updateTodoIsDone(id: string, isDone: boolean): Promise<void> {
+		await this.repository.update({ id }, { isDone });
+	}
+
 	async countTodosByUser(userId: string): Promise<number> {
 		const userTodosLength = await this.repository.count({ where: { userId } });
 

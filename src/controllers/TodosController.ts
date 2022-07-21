@@ -5,6 +5,7 @@ import { CreateTodoService } from "../services/todos/createTodo/CreateTodoServic
 import { ListTodosService } from "../services/todos/listTodos/ListTodosService";
 import { GetTodoService } from "../services/todos/getTodo/GetTodoService";
 import { ChangeTodoOrder } from "../services/todos/changeTodoOrder/ChangeTodoOrder";
+import { ToggleTodoIsDoneService } from "../services/todos/toggleTodoIsDone/ToggleTodoIsDoneService";
 
 class TodosController {
 	async create(request: Request, response: Response): Promise<Response> {
@@ -53,13 +54,23 @@ class TodosController {
 		return response.json({ todo });
 	}
 
-	// validate tht newOrder is an int
+	// validate that newOrder is an int
 	async changeTodoOrder(request: Request, response: Response): Promise<Response> {
 		const { id, newOrder } = request.body;
 
 		const changeTodoOrder = container.resolve(ChangeTodoOrder);
 
 		const todo = await changeTodoOrder.execute(id, newOrder);
+
+		return response.status(201).send();
+	}
+
+	async toggleTodoIsDone(request: Request, response: Response): Promise<Response> {
+		const { id } = request.params;
+
+		const toggleTodoIsDoneService = container.resolve(ToggleTodoIsDoneService);
+
+		await toggleTodoIsDoneService.execute(id);
 
 		return response.status(201).send();
 	}

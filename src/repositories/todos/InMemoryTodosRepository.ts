@@ -3,14 +3,17 @@ import { ITodo } from "../../entities/todo/ITodo";
 import { ITodosRepository } from "./ITodosRepository";
 
 class InMemoryTodosRepository implements ITodosRepository {
+	private todos: ITodo[] = [];
+
+	async updateTodoIsDone(id: string, isDone: boolean): Promise<void> {
+		throw new Error("Method not implemented.");
+	}
 	async countTodosByUser(userId: string): Promise<number> {
 		throw new Error("Method not implemented.");
 	}
 	async changeTodoOrder(id: string, newOrder: number): Promise<void> {
 		throw new Error("Method not implemented.");
 	}
-
-	private todos: ITodo[] = [];
 
 	async create(name: string, userId: string): Promise<ITodo> {
 		const todo = new Todo();
