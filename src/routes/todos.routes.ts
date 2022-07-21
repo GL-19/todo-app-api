@@ -14,4 +14,6 @@ todosRouter.get("/:id", ensureAuthenticated, todosController.get);
 
 todosRouter.delete("/:id", ensureAuthenticated, todosController.delete);
 
+todosRouter.post("/change-order", ensureAuthenticated, todosController.changeTodoOrder);
+
 export { todosRouter };

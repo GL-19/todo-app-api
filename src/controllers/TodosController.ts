@@ -4,6 +4,7 @@ import { DeleteTodoService } from "../services/todos/deleteTodo/DeleteTodoServic
 import { CreateTodoService } from "../services/todos/createTodo/CreateTodoService";
 import { ListTodosService } from "../services/todos/listTodos/ListTodosService";
 import { GetTodoService } from "../services/todos/getTodo/GetTodoService";
+import { ChangeTodoOrder } from "../services/todos/changeTodoOrder/ChangeTodoOrder";
 
 class TodosController {
 	async create(request: Request, response: Response): Promise<Response> {
@@ -50,6 +51,17 @@ class TodosController {
 		const todo = await getTodoService.execute(id);
 
 		return response.json({ todo });
+	}
+
+	// validate tht newOrder is an int
+	async changeTodoOrder(request: Request, response: Response): Promise<Response> {
+		const { id, newOrder } = request.body;
+
+		const changeTodoOrder = container.resolve(ChangeTodoOrder);
+
+		const todo = await changeTodoOrder.execute(id, newOrder);
+
+		return response.status(201).send();
 	}
 }
 

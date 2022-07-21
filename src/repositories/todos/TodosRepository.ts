@@ -1,7 +1,8 @@
+import { Repository } from "typeorm";
+
 import { dataSource } from "../../database/dataSource";
 import { ITodo } from "../../entities/todo/ITodo";
 import { Todo } from "../../entities/todo/Todo";
-import { Repository } from "typeorm";
 import { ITodosRepository } from "./ITodosRepository";
 
 class TodosRepository implements ITodosRepository {
@@ -9,6 +10,12 @@ class TodosRepository implements ITodosRepository {
 
 	constructor() {
 		this.repository = dataSource.getRepository(Todo);
+	}
+
+	async countTodosByUser(userId: string): Promise<number> {
+		const userTodosLength = await this.repository.count({ where: { userId } });
+
+		return userTodosLength;
 	}
 
 	async create(name: string, userId: string): Promise<ITodo> {
@@ -38,40 +45,6 @@ class TodosRepository implements ITodosRepository {
 			.andWhere("order >= :currentOrder", { currentOrder: todo.order });
 
 		await reorderUserTodosQuery.execute();
-	}
-
-	async increasePositionsByOne(start: number = 1, end?: number): Promise<void> {
-		const query = this.repository
-			.createQueryBuilder()
-			.update(Todo)
-			.set({ order: () => '"order" + 1' });
-
-		if (start) {
-			query.andWhere("order >= :start", { start });
-		}
-
-		if (end) {
-			query.andWhere("order <= :end", { end });
-		}
-
-		await query.execute();
-	}
-
-	async decreasePositionsByOne(start: number, end: number): Promise<void> {
-		const query = this.repository
-			.createQueryBuilder()
-			.update(Todo)
-			.set({ order: () => '"order" - 1' });
-
-		if (start) {
-			query.andWhere("order >= :start", { start });
-		}
-
-		if (end) {
-			query.andWhere("order <= :end", { end });
-		}
-
-		await query.execute();
 	}
 
 	async findById(id: string): Promise<ITodo> {
@@ -113,6 +86,36 @@ class TodosRepository implements ITodosRepository {
 				},
 			});
 		}
+	}
+
+	async changeTodoOrder(id: string, newOrder: number): Promise<void> {
+		const todo = await this.repository.findOneBy({ id });
+
+		const query = this.repository.createQueryBuilder().update(Todo);
+
+		if (newOrder > todo.order) {
+			query
+				.set({ order: () => '"order" - 1' })
+				.where({ userId: todo.userId })
+				.andWhere("order > :currentOrder and order <= :newOrder", {
+					currentOrder: todo.order,
+					newOrder,
+				});
+		}
+
+		if (newOrder < todo.order) {
+			query
+				.set({ order: () => '"order" + 1' })
+				.where({ userId: todo.userId })
+				.andWhere("order < :currentOrder and order >= :newOrder", {
+					currentOrder: todo.order,
+					newOrder,
+				});
+		}
+
+		await query.execute();
+
+		await this.repository.update({ id: todo.id }, { order: newOrder });
 	}
 }
 
