@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Todo } from "../todo/Todo";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 import { IUser } from "./IUser";
 
@@ -18,6 +19,9 @@ class User implements IUser {
 
 	@CreateDateColumn()
 	createdAt: Date;
+
+	@OneToMany(() => Todo, "todo")
+	todo: Todo;
 
 	constructor() {
 		if (!this.id) {

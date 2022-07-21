@@ -12,12 +12,12 @@ class TodosRepository implements ITodosRepository {
 	}
 
 	async create(name: string, userId: string): Promise<ITodo> {
-		const tableLength = await this.repository.count();
+		const userTodosLength = await this.repository.count({ where: { userId } });
 
 		const todo = await this.repository.create({
 			name,
 			userId,
-			order: tableLength + 1,
+			order: userTodosLength + 1,
 		});
 
 		await this.repository.save(todo);
@@ -26,6 +26,8 @@ class TodosRepository implements ITodosRepository {
 	}
 
 	async delete(id: string): Promise<void> {
+		/* const todo = await this.repository.findOneBy({ id }); */
+
 		await this.repository.delete({ id });
 	}
 

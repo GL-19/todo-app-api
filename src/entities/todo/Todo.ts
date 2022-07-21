@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { User } from "../user/User";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 import { ITodo } from "./ITodo";
 
@@ -9,6 +10,9 @@ class Todo implements ITodo {
 
 	@Column()
 	userId: string;
+
+	@ManyToOne(() => User, "user")
+	user: User;
 
 	@Column()
 	name: string;
