@@ -18,6 +18,8 @@ todosRouter.delete("/:id", ensureAuthenticated, todosController.delete);
 
 todosRouter.patch("/:id", ensureAuthenticated, todosController.updateTodoIsDone);
 
+todosRouter.get("/info/count", ensureAuthenticated, todosController.getListInfo);
+
 todosRouter.post("/change-order", ensureAuthenticated, todosController.updateTodoOrder);
 
 export { todosRouter };

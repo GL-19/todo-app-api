@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+
 import { DeleteTodoService } from "../services/todos/deleteTodo/DeleteTodoService";
 import { CreateTodoService } from "../services/todos/createTodo/CreateTodoService";
 import { ListTodosService } from "../services/todos/listTodos/ListTodosService";
@@ -7,6 +8,7 @@ import { GetTodoService } from "../services/todos/getTodo/GetTodoService";
 import { ChangeTodoOrder } from "../services/todos/changeTodoOrder/ChangeTodoOrder";
 import { ToggleTodoIsDoneService } from "../services/todos/toggleTodoIsDone/ToggleTodoIsDoneService";
 import { ClearTodoListService } from "../services/todos/clearTodoList/ClearTodoListService";
+import { GetTodoListInfoService } from "../services/todos/getTodoListInfo/GetTodoListInfoService";
 
 class TodosController {
 	async create(request: Request, response: Response): Promise<Response> {
@@ -94,6 +96,16 @@ class TodosController {
 		await clearTodoListService.execute(userId, clearOption);
 
 		return response.send();
+	}
+
+	async getListInfo(request: Request, response: Response): Promise<Response> {
+		const { userId } = request;
+
+		const getTodoListInfoService = container.resolve(GetTodoListInfoService);
+
+		const data = await getTodoListInfoService.execute(userId);
+
+		return response.json(data);
 	}
 }
 

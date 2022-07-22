@@ -39,16 +39,22 @@ class TodosRepository implements ITodosRepository {
 		await this.repository.update({ id }, { isDone });
 	}
 
-	async countTodosByUser(userId: string): Promise<number> {
-		const userTodosLength = await this.repository.count({ where: { userId } });
+	async countTodosByUser(userId: string, option?: string): Promise<number> {
+		if (option === "completed") {
+			return this.repository.count({ where: { userId, isDone: true } });
+		}
 
-		return userTodosLength;
+		if (option === "incompleted") {
+			return this.repository.count({ where: { userId, isDone: false } });
+		}
+
+		return this.repository.count({ where: { userId } });
 	}
 
 	async create(name: string, userId: string): Promise<ITodo> {
 		const userTodosLength = await this.repository.count({ where: { userId } });
 
-		const todo = await this.repository.create({
+		const todo = this.repository.create({
 			name,
 			userId,
 			order: userTodosLength + 1,
@@ -78,18 +84,7 @@ class TodosRepository implements ITodosRepository {
 		return this.repository.findOneBy({ id });
 	}
 
-	async listByUser(userId: string, option: string = "all"): Promise<ITodo[]> {
-		if (option === "all") {
-			return this.repository.find({
-				where: {
-					userId,
-				},
-				order: {
-					order: "ASC",
-				},
-			});
-		}
-
+	async listByUser(userId: string, option?: string): Promise<ITodo[]> {
 		if (option === "completed") {
 			return this.repository.find({
 				where: {
@@ -113,6 +108,15 @@ class TodosRepository implements ITodosRepository {
 				},
 			});
 		}
+
+		return this.repository.find({
+			where: {
+				userId,
+			},
+			order: {
+				order: "ASC",
+			},
+		});
 	}
 
 	async changeTodoOrder(id: string, newOrder: number): Promise<void> {

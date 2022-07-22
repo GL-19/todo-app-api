@@ -7,7 +7,7 @@ interface ITodosRepository {
 	listByUser(userId: string, option?: string): Promise<ITodo[]>;
 	clearUserList(userId: string, clearOption: string): Promise<void>;
 	changeTodoOrder(id: string, newOrder: number): Promise<void>;
-	countTodosByUser(userId: string): Promise<number>;
+	countTodosByUser(userId: string, option?: string): Promise<number>;
 	updateTodoIsDone(id: string, isDone: boolean): Promise<void>;
 }
 
