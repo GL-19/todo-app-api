@@ -47,8 +47,8 @@ class InMemoryTodosRepository implements ITodosRepository {
 		return this.todos.find((todo) => todo.id === id);
 	}
 
-	async listByUser(userId: string, option?: string): Promise<ITodo[]> {
-		if (!option) {
+	async listByUser(userId: string, option: string = "all"): Promise<ITodo[]> {
+		if (option === "all") {
 			return this.todos.filter((todo) => todo.userId === userId);
 		}
 

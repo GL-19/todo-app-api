@@ -78,8 +78,8 @@ class TodosRepository implements ITodosRepository {
 		return this.repository.findOneBy({ id });
 	}
 
-	async listByUser(userId: string, option?: string): Promise<ITodo[]> {
-		if (!option) {
+	async listByUser(userId: string, option: string = "all"): Promise<ITodo[]> {
+		if (option === "all") {
 			return this.repository.find({
 				where: {
 					userId,

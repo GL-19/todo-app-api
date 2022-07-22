@@ -35,7 +35,7 @@ class TodosController {
 		let { filterOption } = request.query;
 
 		if (filterOption !== "incompleted" && filterOption !== "completed") {
-			filterOption = "";
+			filterOption = "all";
 		}
 
 		const listTodosService = container.resolve(ListTodosService);
