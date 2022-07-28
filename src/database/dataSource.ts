@@ -8,6 +8,9 @@ import { CreateTodos1658193995289 } from "./migrations/1658193995289-CreateTodos
 
 // use the name of the docker database container as host
 
+console.log(process.env.ENV);
+console.log(process.env.DATABASE_URL);
+
 const dataSource =
 	process.env.ENV === "prod"
 		? new DataSource({
