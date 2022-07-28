@@ -16,7 +16,9 @@ const dataSource =
 		? new DataSource({
 				type: "postgres",
 				url: process.env.DATABASE_URL,
-				ssl: false,
+				ssl: {
+					rejectUnauthorized: false,
+				},
 				migrations: [CreateUsers1658187381045, CreateTodos1658193995289],
 				entities: [User, Todo],
 		  })
